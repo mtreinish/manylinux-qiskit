@@ -1,0 +1,18 @@
+---
+os: linux
+dist: bionic
+language: python
+cache:
+  pip: true
+services:
+  - docker
+jobs:
+  include:
+    - name: s390x Build
+      arch: s390x
+      script: docker build Dockerfile-s390x
+    - name: ppc64le Build
+      arch: s390x
+      script: docker build Dockerfile-ppc64le
+    - name: aarch64 Build
+      script: docker build Dockerfile-aarch64
