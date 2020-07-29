@@ -2,5 +2,6 @@ FROM quay.io/pypa/manylinux2014_s390x
 LABEL maintainer="mtreinish"
 COPY ./requirements.txt .
 RUN yum install -y gcc-gfortran openblas-devel lapack-devel
+ENV NPY_NUM_BUILD_JOBS 2
 RUN /opt/python/cp35-cp35m/bin/pip install -U -r requirements.txt
 RUN /opt/python/cp36-cp36m/bin/pip install -U -r requirements.txt
