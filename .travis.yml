@@ -1,9 +1,6 @@
 ---
 os: linux
 dist: bionic
-language: python
-cache:
-  pip: true
 services:
   - docker
 install: ""
