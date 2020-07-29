@@ -10,50 +10,63 @@ install: ""
 stages:
   - stage1
   - stage2
+  - stage3
+  - stage4
 jobs:
   include:
     - name: s390x Build Python 3.5 and Python 3.6
       arch: s390x
       stage: stage1
-      script: docker build -t s390x_temp1 -f Dockerfile-s390x_py35_py36 .
-      workspaces:
-        create:
-          name: s390x_builds
-          paths:
-            - /var/lib/docker
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t docker push mtreinish/manylinux-qiskit-temp:s390x_temp1 -f Dockerfile-s390x_py35_py36 .
+        - docker push mtreinish/manylinux-qiskit-temp:s390x_temp1
     - name: ppc64le Build Python 3.5 and Python 3.6
       arch: ppc64le
       stage: stage1
-      script: docker build -t ppc64le_temp1 -f Dockerfile-ppc64le_py35_py36 .
-      workspaces:
-        create:
-          name: ppc64le_builds
-          paths:
-            - /var/lib/docker
-    - name: aarch64 Build Python 3.5 and Python 3.6
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t mtreinish/manylinux-qiskit-temp:ppc64le_temp1 -f Dockerfile-ppc64le_py35_py36 .
+        - docker push mtreinish/manylinux-qiskit-temp:ppc64le_temp1
+    - name: aarch64 Build Python 3.5
       arch: arm64
       stage: stage1
-      script: docker build -t aarch64_temp1 -f Dockerfile-aarch64_py35_py36 .
-      workspaces:
-        create:
-          name: aarch64_builds
-          paths:
-            - /var/lib/docker
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t mtreinish/manylinux-qiskit-temp:aarch64_temp1 -f Dockerfile-aarch64_py35 .
+        - docker push mtreinish/manylinux-qiskit-temp:aarch64_temp1
     - name: s390x Build Python 3.7 and Python 3.8
       arch: s390x
       stage: stage2
-      script: docker build -t manylinux-qiskit-s390x -f Dockerfile-s390x_py37_py38 .
-      workspaces:
-        use: s390x_builds
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t mtreinish/manylinux-qiskit:s390x -f Dockerfile-s390x_py37_py38 .
+        - docker push mtreinish/manylinux-qiskit:s390x
     - name: ppc64le Build Python 3.7 and Python 3.8
       arch: ppc64le
       stage: stage2
-      script: docker build -t manylinux-qiskit-ppc64le Dockerfile-ppc64le_py37_py38 .
-      workspaces:
-        use: ppc64le_builds
-    - name: aarch64le Build Python 3.7 and Python 3.8
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t mtreinish/manylinux-qiskit:ppc64le -f Dockerfile-ppc64le_py37_py38 .
+        - docker push mtreinish/manylinux-qiskit:ppc64le
+    - name: aarch64le Build Python 3.6
       arch: arm64
       stage: stage2
-      script: docker build -t manylinux-qiskit-aarch64 Dockerfile-aarch64_py37_py38 .
-      workspaces:
-        use: aarch64_builds
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t mtreinish/manylinux-qiskit-temp:aarch64_temp2 -f Dockerfile-aarch64_py36 .
+        - docker push mtreinish/manylinux-qiskit-temp:arch64_temp2
+    - name: aarch64le Build Python 3.7
+      arch: arm64
+      stage: stage3
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t mtreinish/manylinux-qiskit-temp:aarch64_temp3 -f Dockerfile-aarch64_py37 .
+        - docker push mtreinish/manylinux-qiskit-temp:aarch64_temp3
+    - name: aarch64le Build Python 3.8
+      arch: arm64
+      stage: stage4
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t manylinux-qiskit-aarch64 -f Dockerfile-aarch64_py38 .
+        - docker push mtreinish/mtreinish/manylinux-qiskit:aarch64
