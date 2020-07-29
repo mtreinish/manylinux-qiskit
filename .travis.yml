@@ -7,14 +7,47 @@ cache:
 services:
   - docker
 install: ""
+stages:
+  - stage1
+  - stage2
 jobs:
   include:
-    - name: s390x Build
+    - name: s390x Build Python 3.5 and Python 3.6
       arch: s390x
-      script: docker build -f Dockerfile-s390x .
-    - name: ppc64le Build
+      stage: stage1
+      script: docker build -t s390x_temp1 -f Dockerfile-s390x_py35_py36 .
+      workspaces:
+        create:
+          name: s390x_builds
+    - name: ppc64le Build Python 3.5 and Python 3.6
       arch: ppc64le
-      script: docker build -f Dockerfile-ppc64le .
-    - name: aarch64 Build
+      stage: stage1
+      script: docker build -t ppc64le_temp1 -f Dockerfile-ppc64le_py35_36 .
+      workspaces:
+        create:
+          name: ppc64le_builds
+    - name: aarch64 Build Python 3.5 and Python 3.6
       arch: arm64
-      script: docker build -f Dockerfile-aarch64 .
+      stage: stage1
+      script: docker build -t aarch64_temp1 -f Dockerfile-aarch64-py35_36 .
+      workspaces:
+        create:
+          name: aarch64_builds
+    - name: s390x Build Python 3.7 and Python 3.8
+      arch: s390x
+      stage: stage2
+      script: docker build -t manylinux-qiskit-s390x -f Dockerfile-s390x_py37_py38 .
+      workspaces:
+        use: s390x_builds
+    - name: ppc64le Build Python 3.7 and Python 3.8
+      arch: ppc64le
+      stage: stage2
+      script: docker build -t manylinux-qiskit-ppc64le Dockerfile-ppc64le_py37_py38 .
+      workspaces:
+        use: ppc64le_builds
+    - name: aarch64le Build Python 3.7 and Python 3.8
+      arch: arm64
+      stage: stage2
+      script: docker build -t manylinux-qiskit-aarch64 Dockerfile-aarch64_py37_py38 .
+      workspaces:
+        use: aarch64_builds
