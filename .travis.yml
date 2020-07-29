@@ -11,9 +11,9 @@ jobs:
   include:
     - name: s390x Build
       arch: s390x
-      script: docker build -f Dockerfile-s390x
+      script: docker build -f Dockerfile-s390x .
     - name: ppc64le Build
       arch: s390x
-      script: docker build -f Dockerfile-ppc64le
+      script: docker build -f Dockerfile-ppc64le .
     - name: aarch64 Build
-      script: docker build -f Dockerfile-aarch64
+      script: docker build -f Dockerfile-aarch64 .
