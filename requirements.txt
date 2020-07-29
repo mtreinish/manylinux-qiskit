@@ -1,0 +1,6 @@
+numpy
+scipy
+cython
+pybind11
+psutil
+python-constraint

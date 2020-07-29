@@ -1,7 +1,7 @@
 FROM quay.io/pypa/manylinux2014_aarch64
 LABEL maintainer="mtreinish"
 RUN yum install -y gcc-gfortran openblas-devel lapack-devel
-RUN /opt/python/cp35-cp35m/bin/pip install -U numpy scipy cython pybind
-RUN /opt/python/cp36-cp36m/bin/pip install -U numpy scipy cython pybind
-RUN /opt/python/cp37-cp37m/bin/pip install -U numpy scipy cython pybind
-RUN /opt/python/cp37-cp38/bin/pip install -U numpy scipy cython pybind
+RUN /opt/python/cp35-cp35m/bin/pip install -U -r requirements.txt
+RUN /opt/python/cp36-cp36m/bin/pip install -U -r requirements.txt
+RUN /opt/python/cp37-cp37m/bin/pip install -U -r requirements.txt
+RUN /opt/python/cp38-cp38/bin/pip install -U -r requirements.txt
