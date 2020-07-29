@@ -15,21 +15,27 @@ jobs:
     - name: s390x Build Python 3.5 and Python 3.6
       arch: s390x
       stage: stage1
-      script: docker build -t s390x_temp1 -f Dockerfile-s390x_py35_py36 .
+      script:
+        - docker info
+        - docker build -t s390x_temp1 -f Dockerfile-s390x_py35_py36 .
       workspaces:
         create:
           name: s390x_builds
     - name: ppc64le Build Python 3.5 and Python 3.6
       arch: ppc64le
       stage: stage1
-      script: docker build -t ppc64le_temp1 -f Dockerfile-ppc64le_py35_py36 .
+      script:
+        - docker info
+        - docker build -t ppc64le_temp1 -f Dockerfile-ppc64le_py35_py36 .
       workspaces:
         create:
           name: ppc64le_builds
     - name: aarch64 Build Python 3.5 and Python 3.6
       arch: arm64
       stage: stage1
-      script: docker build -t aarch64_temp1 -f Dockerfile-aarch64_py35_py36 .
+      script:
+        - docker info
+        - docker build -t aarch64_temp1 -f Dockerfile-aarch64_py35_py36 .
       workspaces:
         create:
           name: aarch64_builds
