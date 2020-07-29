@@ -19,7 +19,7 @@ jobs:
       stage: stage1
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t docker push mtreinish/manylinux-qiskit-temp:s390x_temp1 -f Dockerfile-s390x_py35_py36 .
+        - docker build -t mtreinish/manylinux-qiskit-temp:s390x_temp1 -f Dockerfile-s390x_py35_py36 .
         - docker push mtreinish/manylinux-qiskit-temp:s390x_temp1
     - name: ppc64le Build Python 3.5 and Python 3.6
       arch: ppc64le
