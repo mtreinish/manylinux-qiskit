@@ -1,3 +1,5 @@
 FROM s390x_temp1
 RUN /opt/python/cp37-cp37m/bin/pip install -U -r requirements.txt
+RUN /opt/python/cp37-cp37m/bin/pip install -U scipy
 RUN /opt/python/cp38-cp38/bin/pip install -U -r requirements.txt
+RUN /opt/python/cp38-cp38/bin/pip install -U scipy

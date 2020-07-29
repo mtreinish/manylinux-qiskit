@@ -5,4 +5,6 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
 ENV NPY_NUM_BUILD_JOBS 2
 RUN yum install -y gcc-gfortran openblas-devel lapack-devel
 RUN /opt/python/cp35-cp35m/bin/pip install -U -r requirements.txt
+RUN /opt/python/cp35-cp35m/bin/pip install -U scipy
 RUN /opt/python/cp36-cp36m/bin/pip install -U -r requirements.txt
+RUN /opt/python/cp36-cp36m/bin/pip install -U scipy
