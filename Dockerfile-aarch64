@@ -1,5 +1,6 @@
 FROM quay.io/pypa/manylinux2014_aarch64
 LABEL maintainer="mtreinish"
+COPY ./requirements.txt .
 RUN yum install -y gcc-gfortran openblas-devel lapack-devel
 RUN /opt/python/cp35-cp35m/bin/pip install -U -r requirements.txt
 RUN /opt/python/cp36-cp36m/bin/pip install -U -r requirements.txt
