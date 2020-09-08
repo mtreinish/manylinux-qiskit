@@ -1,0 +1,3 @@
+FROM aarch64_temp3
+RUN /opt/python/cp38-cp38/bin/pip install -U -r requirements.txt
+RUN /opt/python/cp38-cp38/bin/pip install -U scipy

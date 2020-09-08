@@ -1,4 +1,4 @@
-FROM quay.io/pypa/manylinux2014_ppc64le
+FROM quay.io/pypa/manylinux2014_aarch64
 LABEL maintainer="mtreinish"
 COPY ./requirements.txt .
 RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
@@ -8,7 +8,3 @@ RUN /opt/python/cp35-cp35m/bin/pip install -U -r requirements.txt
 RUN /opt/python/cp35-cp35m/bin/pip install -U scipy
 RUN /opt/python/cp36-cp36m/bin/pip install -U -r requirements.txt
 RUN /opt/python/cp36-cp36m/bin/pip install -U scipy
-RUN /opt/python/cp37-cp37m/bin/pip install -U -r requirements.txt
-RUN /opt/python/cp37-cp37m/bin/pip install -U scipy
-RUN /opt/python/cp38-cp38/bin/pip install -U -r requirements.txt
-RUN /opt/python/cp38-cp38/bin/pip install -U scipy
